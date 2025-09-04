@@ -1,1 +1,17 @@
 -- TODO
+DROP TABLE IF EXISTS files CASCADE;
+DROP TABLE IF EXISTS folders CASCADE;
+-- CASCADE ^^ up there maybe
+
+CREATE TABLE folders(
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE files(
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  size INTEGER NOT NULL,
+  folder_id int NOT NULL REFERENCES folders(id) ON DELETE CASCADE,
+  UNIQUE(name, folder_id)
+);
